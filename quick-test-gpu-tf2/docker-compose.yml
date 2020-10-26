@@ -1,0 +1,11 @@
+version: '2'
+services:
+  jupyter:
+    container_name: 'docker_thi_test'
+    build: .
+    volumes:
+        - ./notebooks:/tf/notebooks # notebook directory
+    ports:
+        - 8888:8888 # exposed port for jupyter
+    environment:
+        - NVIDIA_VISIBLE_DEVICES=0 # which gpu do you want to use for this container
