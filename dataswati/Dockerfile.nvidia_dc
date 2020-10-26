@@ -1,0 +1,61 @@
+FROM nvidia/cuda:10.2-base
+
+# encoding
+RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment
+RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+RUN echo "LANG=en_US.UTF-8" > /etc/locale.conf
+RUN locale-gen en_US.UTF-8
+#ENV LANG en_US.UTF-8
+#ENV LANGUAGE en_US:en
+#ENV LC_ALL en_US.UTF-8
+
+# fix (tzdata)
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get -y update && \
+    apt-get -y upgrade && \
+    apt-get install -y python3-pip python3-dev locales git r-base
+#    apt-get install -y openssh-server
+
+# nodejs (enable extension for jupyter notebook)
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
+RUN apt-get install -y nodejs
+RUN npm config set unicode false # fix UnicodeDecodeError
+
+## ssh server
+#RUN mkdir /var/run/sshd
+#RUN echo 'root:qwerty' | chpasswd
+#RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+## SSH login fix. Otherwise user is kicked off after login
+#RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+## need?
+#ENV NOTVISIBLE "in users profile"
+#RUN echo "export VISIBLE=now" >> /etc/profile
+
+# create alias
+RUN echo 'alias popai="cd /usr/lib/python3/dist-packages/popai"' >> ~/.bashrc
+RUN echo 'alias python="python3"' >> ~/.bashrc
+RUN echo 'alias pip="pip3"' >> ~/.bashrc
+# only display 3 last folder in the path
+RUN echo 'PROMPT_DIRTRIM=3' >> ~/.bashrc
+
+# create shortcuts
+RUN ln -s /data_controller/client/python/src/python/request_data_controller /usr/lib/python3/dist-packages/request_data_controller
+RUN ln -s /data_controller/src/python/automate_grpc /usr/lib/python3/dist-packages/automate_grpc
+
+# install python's requirements
+COPY requirements.txt requirements.txt
+RUN python3 -m pip install --upgrade pip && \
+    python3 -m pip install -r requirements.txt
+COPY . .
+
+# export port ssh
+#EXPOSE 22
+#CMD $(which sshd) -Ddp 22
+
+# run
+CMD ["sh","-c","cd /data_controller/utils/ && sh generate_grpc_code_from_protos.sh && cd /srv/ && jupyter lab --no-browser --allow-root --ip=0.0.0.0 --NotebookApp.token='' --NotebookApp.password=''"]
+
+
+#CMD /bin/bash -c 'jupyter lab --no-browser --allow-root --ip=0.0.0.0 --NotebookApp.token="" --NotebookApp.password=""'
+
