@@ -1,0 +1,11 @@
+version: '2.3'
+services:
+  jupyter:
+    container_name: 'docker_test'
+    image: img_base_ml_data
+    volumes:
+        - .:/srv/ # notebook directory
+    ports:
+        - 8888:8888 # exposed port for jupyter
+    runtime: nvidia
+    working_dir: /thi
