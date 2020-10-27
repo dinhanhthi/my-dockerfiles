@@ -1,4 +1,4 @@
-apache-airflow==1.10.10
+apache-airflow
 csaps==1.0.0
 dtaidistance==1.2.3
 geopandas==0.4.1
