@@ -1,0 +1,6 @@
+[submodule "docker-math2it"]
+	path = docker-math2it
+	url = git@github.com:math2it/docker-math2it.git
+[submodule "docker-texmath"]
+	path = docker-texmath
+	url = git@github.com:math2it/docker-texmath.git

@@ -4,7 +4,7 @@ services:
     container_name: 'docker_thi_test_gpu'
     image: img_quick_test_gpu
     volumes:
-        - ./notebooks:/tf/notebooks # notebook directory
+        - .:/srv/ # notebook directory
     ports:
         - 8888:8888 # exposed port for jupyter
     runtime: nvidia
