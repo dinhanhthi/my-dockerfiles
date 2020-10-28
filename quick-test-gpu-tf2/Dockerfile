@@ -1,1 +1,1 @@
-FROM tensorflow/tensorflow:latest-gpu-jupyter
+FROM tensorflow/tensorflow:2.3.1-gpu-jupyter
