@@ -38,6 +38,7 @@ python3 # enter to python env
 
 import torch
 torch.cuda.is_available()
+torch.cuda.get_device_name(torch.cuda.current_device())
 ```
 
 ``` python
