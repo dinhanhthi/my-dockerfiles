@@ -1,13 +1,13 @@
 version: '2.3'
 services:
   jupyter:
-    container_name: 'docker_thi_dev'
+    container_name: 'docker_ai'
     image: img_base_ml_data
     volumes:
-        - .:/srv/ # notebook directory
+        - .:/srv/
     ports:
         - 8888:8888 # exposed port for jupyter
     #runtime: nvidia
-    working_dir: /thi
+    working_dir: /srv
     environment:
         - NVIDIA_VISIBLE_DEVICES=0 # which gpu do you want to use for this container
