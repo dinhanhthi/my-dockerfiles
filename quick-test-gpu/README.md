@@ -7,10 +7,10 @@ My [notes](https://dinhanhthi.com/docker-gpu) about Docker + GPUs.
 docker build -t img_quick_test_gpu .
 
 # create a container
-docker-compose up -d
+docker-compose run --rm jupyter
 
 # enter to test
-docker exec -it docker_thi_test_gpu bash
+docker exec -it <name_of_container> bash
 
 # gpu available?
 nvidia-smi
