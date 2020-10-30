@@ -11,6 +11,7 @@ RUN python3 -m pip install tensorflow==2.3.1
 ARG DEBIAN_FRONTEND=noninteractive
 
 # USEFUL APPS
+RUN apt-get -y update
 RUN apt-get install -y locales git r-base vim
 
 # NODEJS (enable extension for jupyter notebook)
