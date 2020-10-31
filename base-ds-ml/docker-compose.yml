@@ -4,10 +4,11 @@ services:
     container_name: 'docker_ai'
     image: img_base_ml_data
     volumes:
-        - .:/srv/
+        - ../../deeplearning.ai-courses/:/learning/deeplearning.ai-courses/
+        - ../../data-science-learning/:/learning/data-science-learning/
     ports:
         - 8888:8888 # exposed port for jupyter
     #runtime: nvidia
-    working_dir: /srv
+    working_dir: /learning/
     environment:
         - NVIDIA_VISIBLE_DEVICES=0 # which gpu do you want to use for this container
