@@ -11,7 +11,9 @@ cd dinhanhthi.com
 
 # copy folder "docker" to the root of the jekyll site, e.g. "dinhanhthi.com/docker"
 cd docker
-docker-compose up -d
+docker-compose -p "project_name" up -d
+# You should use differnet project_name for different jekyll sites 
+# if you run simultaneously multiple jekyll sites
 
 # whenever working
 docker start dat_local
