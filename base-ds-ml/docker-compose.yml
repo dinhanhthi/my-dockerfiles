@@ -11,5 +11,6 @@ services:
         - 8888:8888 # exposed port for jupyter
     #runtime: nvidia
     working_dir: /learning/
+    #restart: always # start with system
     environment:
         - NVIDIA_VISIBLE_DEVICES=0 # which gpu do you want to use for this container

@@ -1,0 +1,9 @@
+version: '2.3'
+services:
+  simple_ubuntu:
+    container_name: 'simple_ubuntu'
+    image: ubuntu:20.04
+    command: tail -F anything # keep a container running
+    volumes:
+        - /home/thi/Downloads:/downloads
+    working_dir: /downloads
