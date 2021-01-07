@@ -14,6 +14,22 @@ This dockerfile contains:
 
 And some python's libraries are given in [requirements.txt](./requirements.txt).
 
+## Working dirs
+
+``` bash
+# Working folders & this repo should be
+|-- git/
+	|-- other working folders
+	|-- my-dockerfiles/
+		|-- docker-ai/
+			|-- docker-compose.yml
+			|-- Dockerfile
+			|-- requirements.txt
+
+# All dirs in /git/ should visible in the container "docker_ai"
+# If there are any changes, changes the right dirs in docker-compose.yml
+```
+
 ## Build and Run
 
 ``` bash
