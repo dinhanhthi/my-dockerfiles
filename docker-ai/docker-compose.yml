@@ -4,9 +4,7 @@ services:
     container_name: 'docker_ai'
     image: img_base_ml_data
     volumes:
-        - ../../testing-notebooks/:/learning/testing-notebooks/
-        - ../../deeplearning.ai-courses/:/learning/deeplearning.ai-courses/
-        - ../../data-science-learning/:/learning/data-science-learning/
+        - ../../../git/:/learning/
     ports:
         - 8888:8888 # exposed port for jupyter
     #runtime: nvidia
