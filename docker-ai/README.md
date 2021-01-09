@@ -12,9 +12,12 @@ This dockerfile contains:
 6. Pytorch (which supports GPU)
 7. Jupyter notebook and some of its extensions.
 
-__Requirement__: You have successfully installed GPU driver on your (linux) machine.
-
 And some python's libraries are given in [requirements.txt](./requirements.txt).
+
+## Requirement
+
+You have successfully installed GPU driver on your (linux) machine.
+
 
 ## Working dirs
 
