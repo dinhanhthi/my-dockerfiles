@@ -1,11 +1,11 @@
-FROM tensorflow/tensorflow:2.3.1-gpu
-# https://hub.docker.com/layers/tensorflow/tensorflow/2.3.1-gpu/images/sha256-37c7db66cc96481ac1ec43af2856ef65d3e664fd7f5df6b5e54855149f7f8594?context=explore
-# CUDA=10.1 CUDNN=7.6.4.38-1 CUDNN_MAJOR_VERSION=7
-# LIBNVINFER=6.0.1-1
+FROM tensorflow/tensorflow:2.4.0-gpu
+# https://hub.docker.com/layers/tensorflow/tensorflow/2.4.0-gpu/images/sha256-67dbafa3e7918a3efc67db49063aebdb282a0ebb1c124b7ca0db18207e6d7a22?context=explore
+# CUDA=11.0.3 CUDNN=8.0.4.30-1 CUDNN_MAJOR_VERSION=8
+# LIBNVINFER=7.1.3-1
 
 # Already installed python packages:
-#   tensorflow-gpu==2.3.1 (NOT tensorflow==2.3.1)
-RUN python3 -m pip install tensorflow==2.3.1
+#   tensorflow-gpu==2.4.0 (NOT tensorflow==2.4.0)
+# RUN python3 -m pip install tensorflow==2.4.0
 
 # fix (tzdata)
 ARG DEBIAN_FRONTEND=noninteractive
@@ -27,11 +27,11 @@ RUN python3 -m pip install --upgrade pip && \
 COPY . .
 
 ## Jupyter lab + its extensions
-RUN python3 -m pip install jupyterlab==2.2.9
+RUN python3 -m pip install jupyterlab==3.0.3
 RUN jupyter labextension install @jupyterlab/toc
 
 # TORCH
-RUN pip3 install torch==1.7.0+cu101 torchvision==0.8.1+cu101 torchaudio==0.7.0 -f https://download.pytorch.org/whl/torch_stable.html
+RUN pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio===0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
 
 # OPENSSH
 # RUN apt-get install -y openssh-server

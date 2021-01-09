@@ -12,6 +12,8 @@ This dockerfile contains:
 6. Pytorch (which supports GPU)
 7. Jupyter notebook and some of its extensions.
 
+__Requirement__: You have successfully installed GPU driver on your (linux) machine.
+
 And some python's libraries are given in [requirements.txt](./requirements.txt).
 
 ## Working dirs
@@ -19,12 +21,12 @@ And some python's libraries are given in [requirements.txt](./requirements.txt).
 ``` bash
 # Working folders & this repo should be
 |-- git/
-	|-- other working folders
-	|-- my-dockerfiles/
-		|-- docker-ai/
-			|-- docker-compose.yml
-			|-- Dockerfile
-			|-- requirements.txt
+    |-- other working folders
+    |-- my-dockerfiles/
+        |-- docker-ai/
+        |-- docker-compose.yml
+        |-- Dockerfile
+        |-- requirements.txt
 
 # All dirs in /git/ should visible in the container "docker_ai"
 # If there are any changes, changes the right dirs in docker-compose.yml
@@ -34,10 +36,11 @@ And some python's libraries are given in [requirements.txt](./requirements.txt).
 
 ``` bash
 # build an image
-docker build -t img_base_ml_data . -f Dockerfile
+docker build -t img_docker_ai . -f Dockerfile
+# AFTER BUILD: ~13GB image!!!!
 
 # create a container
-docker-compose up -d
+docker-compose -p "container_ai" up -d
 ```
 
 ``` bash
@@ -46,6 +49,14 @@ nvidia-smi
 
 # check cuda version
 nvcc --version | grep "release"
+```
+
+``` bash
+# check tensorflow version
+pip show tensorflow-gpu
+
+# check torch version
+pip show torch
 ```
 
 ``` python
@@ -64,6 +75,17 @@ python3 # enter to python env
 import tensorflow as tf
 tf.config.list_physical_devices('GPU')
 ```
+
+## Upgrade to a newer version of tensorflow?
+
+1. Check if there are this version [on dockerhub](https://hub.docker.com/r/tensorflow/tensorflow/tags/?page=1&ordering=last_updated).
+2. Check the version of `CUDA` in this docker image version. Check if there is a corresponding version [on Torch](https://pytorch.org/)? If **not**, don't upgrade!
+3. Modify file **Dockerfile**:
+   1. Replace all current version with the newer version (using _Find and replace_ of the IDE)
+   2. Relace the line under `# TORCH` with the one on [Torch website](https://pytorch.org/).
+4. Build "another" image (with different name, just in case we fail, we still have the old one).
+5. Modify **docker-compose.yml** with the "newer" name of image.
+6. Create "another" container following section [Build and Run](#build-and-run) (replace `"container_ai"` with "another").
 
 ## References
 

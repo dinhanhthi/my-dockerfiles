@@ -2,7 +2,7 @@ version: '2.3'
 services:
   jupyter:
     container_name: 'docker_ai'
-    image: img_base_ml_data
+    image: img_docker_ai
     volumes:
         - ../../../git/:/learning/
     ports:
