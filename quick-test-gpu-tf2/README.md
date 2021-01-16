@@ -14,10 +14,12 @@ docker ps
 docker exec -it <container_name> bash
 
 # check if gpus are available?
-nvidia-smi
+nvidia-smi 
+# (may not work on wsl2)
 
 # check if tf2 can use gpu?
 python
 import tensorflow as tf
-tf.config.list_physical_devices('GPU')
+# wsl: Successfully opened dynamic library libcudart.so.10.1
+tf.config.list_physical_devices('GPU') # may not work on wsl
 ```
