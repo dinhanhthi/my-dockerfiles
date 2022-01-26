@@ -1,0 +1,10 @@
+version: '2.3'
+services:
+  service_python:
+    container_name: 'python_container'
+    image: img_python
+    volumes:
+        - ../:/app/
+    ports:
+        - 9999:9999
+    working_dir: /app
