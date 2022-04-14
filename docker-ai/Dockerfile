@@ -28,7 +28,7 @@ COPY . .
 
 ## Jupyter lab + its extensions
 RUN python3 -m pip install jupyterlab==3.0.3
-RUN jupyter labextension install @jupyterlab/toc
+# RUN jupyter labextension install @jupyterlab/toc
 
 # TORCH
 RUN pip install torch==1.7.1+cu110 torchvision==0.8.2+cu110 torchaudio===0.7.2 -f https://download.pytorch.org/whl/torch_stable.html
