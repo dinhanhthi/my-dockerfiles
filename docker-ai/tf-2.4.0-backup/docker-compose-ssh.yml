@@ -1,13 +1,13 @@
 version: '2.3'
 services:
   jupyter:
-    container_name: 'docker_ai'
-    image: img_docker_ai
+    container_name: 'docker_ai_ssh'
+    image: img_docker_ai_ssh
     volumes:
-        - ../../../git/:/git/
+        - ../../../git/:/learning/
     ports:
-        - 9999:8888 # exposed port for jupyter
-        - "6789:22"
+        - 8888:8888 # exposed port for jupyter
+        - "9876:22"
     #runtime: nvidia
     working_dir: /learning/
     #restart: always # start with system

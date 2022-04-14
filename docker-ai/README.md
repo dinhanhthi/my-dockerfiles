@@ -46,6 +46,18 @@ docker build -t img_docker_ai . -f Dockerfile
 docker-compose -p "container_ai" up -d
 ```
 
+### Connect via ssh?
+
+```bash
+# ssh to container from current computer
+ssh -p 6789 root@localhost
+# enter "qwerty" as pwd
+```
+
+Check more on [this note](https://dinhanhthi.com/local-connection-between-2-computers-ssh/).
+
+### Checking GPU
+
 ``` bash
 # check gpu availability
 nvidia-smi
