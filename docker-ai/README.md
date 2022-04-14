@@ -49,6 +49,9 @@ docker-compose -p "container_ai" up -d
 ### Connect via ssh?
 
 ```bash
+# Run ssh sever
+docker exec container_ai $(which sshd) -Ddp 22
+
 # ssh to container from current computer
 ssh -p 6789 root@localhost
 # enter "qwerty" as pwd

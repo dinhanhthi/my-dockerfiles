@@ -1,12 +1,12 @@
 # apache-airflow # require version later!!!
-ipython==8.2.0
+ipython==7.16.3
 # jupyterlab is already installed in Dockerfile
-matplotlib==3.5.1
+matplotlib==3.3.4
 # numpy is already installed with tensorflow
-pandas==1.4.2
-pytest==7.1.1
-scikit-learn==1.0.2
-scipy==1.8.0
+pandas==1.1.5
+pytest==7.0.1
+scikit-learn==0.24.2
+scipy==1.5.4
 seaborn==0.11.2
 
 sphinx==4.5.0

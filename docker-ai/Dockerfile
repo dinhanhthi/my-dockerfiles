@@ -49,7 +49,10 @@ ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 # Export port ssh
 EXPOSE 22
-ENTRYPOINT $(which sshd) -Ddp 22
+# 
+# HOW TO USE?
+# Run the ssh server on port 22
+# docker exec <container_name> $(which sshd) -Ddp 22
 # ---------------------------------
 
 

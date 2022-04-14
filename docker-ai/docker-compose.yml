@@ -6,10 +6,10 @@ services:
     volumes:
         - ../../../git/:/git/
     ports:
-        - 9999:8888 # exposed port for jupyter
+        - 8888:8888 # exposed port for jupyter
         - "6789:22"
     #runtime: nvidia
-    working_dir: /learning/
+    working_dir: /git/
     #restart: always # start with system
     environment:
         - NVIDIA_VISIBLE_DEVICES=0 # which gpu do you want to use for this container
