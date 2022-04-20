@@ -14,6 +14,29 @@ This dockerfile contains:
 
 And some python's libraries are given in [requirements.txt](./requirements.txt).
 
+## (Updated 20/04/22) Run from MacOS
+
+__For me only__!
+
+```bash
+# Install and run NoMachine first!
+
+# Take control Linux's terminal
+ssh thi@pop-os.local
+
+# Run the server
+docker exec docker_ai $(which sshd) -Ddp 22
+# or
+start_22
+
+# Open notebook
+ssh -N -L localhost:8888:127.0.0.1:8888 thi@pop-os.local
+
+# Enter docker
+# Make sure to run the server first (start_22)
+ssh -p 6789 root@pop-os.local # qwerty
+```
+
 ## Requirement
 
 You have successfully installed GPU driver on your (linux) machine.
@@ -43,14 +66,14 @@ docker build -t img_docker_ai . -f Dockerfile
 # AFTER BUILD: ~13GB image!!!!
 
 # create a container
-docker-compose -p "container_ai" up -d
+docker-compose -p "docker_ai" up -d
 ```
 
 ### Connect via ssh?
 
 ```bash
 # Run ssh sever
-docker exec container_ai $(which sshd) -Ddp 22
+docker exec docker_ai $(which sshd) -Ddp 22
 
 # ssh to container from current computer
 ssh -p 6789 root@localhost
