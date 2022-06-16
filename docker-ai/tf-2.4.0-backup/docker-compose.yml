@@ -4,12 +4,11 @@ services:
     container_name: 'docker_ai'
     image: img_docker_ai
     volumes:
-        - ../../../git/:/git/
+        - ../../../git/:/learning/
     ports:
         - 8888:8888 # exposed port for jupyter
-        - "6789:22"
-    runtime: nvidia
-    working_dir: /git/
+    #runtime: nvidia
+    working_dir: /learning/
     #restart: always # start with system
-    # environment:
-    #     - NVIDIA_VISIBLE_DEVICES=0 # which gpu do you want to use for this container
+    environment:
+        - NVIDIA_VISIBLE_DEVICES=0 # which gpu do you want to use for this container
