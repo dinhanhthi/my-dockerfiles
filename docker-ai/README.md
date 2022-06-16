@@ -82,7 +82,7 @@ tf.config.list_physical_devices('GPU')
 ## Upgrade to a newer version of tensorflow?
 
 1. Check if there are this version [on dockerhub](https://hub.docker.com/r/tensorflow/tensorflow/tags/?page=1&ordering=last_updated).
-2. Check the version of `CUDA` in this docker image version. Check if there is a corresponding version [on Torch](https://pytorch.org/)? If **not**, don't upgrade!
+2. Check the version of `CUDA` in this docker image version ([The list of corresponding versions between cuda and TF](https://www.tensorflow.org/install/source#gpu)). Check if there is a corresponding version [on Torch](https://pytorch.org/)? If **not**, don't upgrade!
 3. Modify file **Dockerfile**:
    1. Replace all current version with the newer version (using _Find and replace_ of the IDE)
    2. Relace the line under `# TORCH` with the one on [Torch website](https://pytorch.org/).
