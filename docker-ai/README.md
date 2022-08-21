@@ -25,7 +25,7 @@ __For me only__!
 ssh thi@pop-os.local
 
 # Run the server
-docker exec docker_ai $(which sshd) -Ddp 22
+docker exec container_ai $(which sshd) -Ddp 22
 # or
 start_22
 
@@ -62,18 +62,19 @@ You have successfully installed GPU driver on your (linux) machine.
 
 ``` bash
 # build an image
-docker build -t img_docker_ai . -f Dockerfile
+docker build -t img_ai . -f Dockerfile
 # AFTER BUILD: ~13GB image!!!!
 
 # create a container
-docker-compose -p "docker_ai" up -d
+# docker-compose -p "container_ai" up -d
+docker run --name container_ai --gpus all -v /home/thi/git/:/git/ -dp 8888:8888 -dp 6789:22 -w="/git" -it img_ai bash
 ```
 
 ### Connect via ssh?
 
 ```bash
 # Run ssh sever
-docker exec docker_ai $(which sshd) -Ddp 22
+docker exec container_ai $(which sshd) -Ddp 22
 
 # ssh to container from current computer
 ssh -p 6789 root@localhost

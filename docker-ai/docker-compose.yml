@@ -1,8 +1,8 @@
 version: '2.3'
 services:
   jupyter:
-    container_name: 'docker_ai'
-    image: img_docker_ai
+    container_name: 'container_ai'
+    image: img_ai
     volumes:
         - ../../../git/:/git/
     ports:
