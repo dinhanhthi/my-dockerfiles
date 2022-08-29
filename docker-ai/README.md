@@ -2,7 +2,8 @@
 
 This is the main docker setting up environement I've used so far for the purpose of learning and working by myself.
 
-This dockerfile contains:
+<details>
+<summary>This dockerfile contains:</summary>
 
 1. Python 3
 2. Vim
@@ -13,34 +14,13 @@ This dockerfile contains:
 7. Jupyter notebook and some of its extensions.
 
 And some python's libraries are given in [requirements.txt](./requirements.txt).
+</details>
 
-## (Updated 20/04/22) Run from MacOS
+## Dockerfile
 
-__For me only__!
-
-```bash
-# Install and run NoMachine first!
-
-# Take control Linux's terminal
-ssh thi@pop-os.local
-
-# Run the server
-docker exec container_ai $(which sshd) -Ddp 22
-# or
-start_22
-
-# Open notebook
-ssh -N -L localhost:8888:127.0.0.1:8888 thi@pop-os.local
-
-# Enter docker
-# Make sure to run the server first (start_22)
-ssh -p 6789 root@pop-os.local # qwerty
-```
-
-## Requirement
-
-You have successfully installed GPU driver on your (linux) machine.
-
+- `Dockerfile`: cuda 11.2 + tf 2.8.1 + torch 11.2+cu11.3 (!!)
+- `Dockerfile.cu113`: no tf + cuda 11.3 (check [this base image](https://hub.docker.com/layers/cuda/nvidia/cuda/11.3.1-devel-ubuntu20.04/images/sha256-4c1ddee84918551d040c2d24581b4172fbd4734789908e9030f90d2bebf0afc9?context=explore)).
+- `Dockerfile.cu113-cudnn8`: same as `.cu113` but with `cudnn 8.2.0.53` installed (check [this base image](https://hub.docker.com/layers/cuda/nvidia/cuda/11.3.1-cudnn8-devel-ubuntu20.04/images/sha256-459c130c94363099b02706b9b25d9fe5822ea233203ce9fbf8dfd276a55e7e95?context=explore))!
 
 ## Working dirs
 
@@ -66,9 +46,43 @@ docker build -t img_ai . -f Dockerfile
 # AFTER BUILD: ~13GB image!!!!
 
 # create a container
-# docker-compose -p "container_ai" up -d
-docker run --name container_ai --gpus all -v /home/thi/git/:/git/ -dp 8888:8888 -dp 6789:22 -w="/git" -it img_ai bash
+docker-compose -p "container_ai" up -d
+
+# Or using below
+# (remove "bash" for images running the notebook <- check the Dockerfile)
+docker run --name container_ai --gpus all \
+  -v /home/thi/git/:/git/ \
+  -dp 8888:8888 \
+  -dp 6789:22 \
+  -w="/git" -it img_ai bash
 ```
+
+## Run from MacOS
+
+***(Updated 20/04/22)***
+
+<details>
+<summary>For me only!</summary>
+
+```bash
+# Install and run NoMachine first!
+
+# Take control Linux's terminal
+ssh thi@pop-os.local
+
+# Run the server
+docker exec container_ai $(which sshd) -Ddp 22
+# or
+start_22
+
+# Open notebook
+ssh -N -L localhost:8888:127.0.0.1:8888 thi@pop-os.local
+
+# Enter docker
+# Make sure to run the server first (start_22)
+ssh -p 6789 root@pop-os.local # qwerty
+```
+</details>
 
 ### Connect via ssh?
 
@@ -81,7 +95,7 @@ ssh -p 6789 root@localhost
 # enter "qwerty" as pwd
 ```
 
-Check more on [this note](https://dinhanhthi.com/local-connection-between-2-computers-ssh/).
+👉 Check more on [this note](https://dinhanhthi.com/local-connection-between-2-computers-ssh/).
 
 ### Checking GPU
 

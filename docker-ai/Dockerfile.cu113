@@ -1,23 +1,33 @@
-FROM tensorflow/tensorflow:2.8.1-gpu
-# https://hub.docker.com/layers/tensorflow/tensorflow/tensorflow/2.8.1-gpu/images/sha256-09b7686e9830d81a77c8e5dba87739fe4b10167cd02e6c438038934715354a79?context=explore
+FROM nvidia/cuda:11.3.1-devel-ubuntu20.04
+# https://dockr.ly/3Rhq8V3
 
 # fix (tzdata)
 ARG DEBIAN_FRONTEND=noninteractive
 
-# USEFUL APPS
-RUN apt-get -y update
-RUN apt-get install -y locales git r-base vim
+RUN apt-get -y update && \
+    apt-get -y upgrade && \
+    apt-get install -y python3-pip python3-dev
 
-# install python's requirements
+RUN apt-get install -y locales git vim
+
+# alias
+RUN echo 'alias python="python3"' >> ~/.bashrc
+RUN echo 'alias pip="pip3"' >> ~/.bashrc
+
+# only display 3 last folder in the path
+RUN echo 'PROMPT_DIRTRIM=3' >> ~/.bashrc
+
+# requirements
 COPY requirements.txt requirements.txt
 RUN python3 -m pip install --upgrade pip && \
     python3 -m pip install -r requirements.txt
 COPY . .
 
+# Jupyter lab
 RUN python3 -m pip install jupyterlab==3.4.5
 
 # zsh
-RUN apt-get install zsh && apt-get install curl
+RUN apt-get install -y zsh && apt-get install -y curl
 RUN PATH="$PATH:/usr/bin/zsh"
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
@@ -37,9 +47,5 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 # Export port ssh
 EXPOSE 22
 
-
-# Only display 3 last folder in the path
-RUN echo 'PROMPT_DIRTRIM=3' >> ~/.bashrc
-
-# Run jupyter notebook
+# run
 CMD /bin/bash -c 'jupyter lab --no-browser --allow-root --ip=0.0.0.0 --NotebookApp.token="" --NotebookApp.password=""'
