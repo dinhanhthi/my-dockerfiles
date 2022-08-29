@@ -57,6 +57,32 @@ docker run --name container_ai --gpus all \
   -w="/git" -it img_ai bash
 ```
 
+For images where zsh is already installed,
+
+```bash
+# Enter the running container using zsh instead of "bash"
+docker exec -it container_name zsh
+```
+
+### Verification?
+
+```bash
+# Enter the container first
+docker exec -it container_ai zsh
+
+# [TF] Verify the CPU setup:
+python3 -c "import tensorflow as tf; print(tf.reduce_sum(tf.random.normal([1000, 1000])))"
+# If a tensor is returned, you've installed TensorFlow successfully.
+
+# [TF] Verify the GPU setup:
+python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+# If a list of GPU devices is returned, you've installed TensorFlow successfully.
+
+# [Torch]
+python3 -c "import torch; print(torch.cuda.is_available()); print(torch.cuda.get_device_name(torch.cuda.current_device()))"
+# If a GPU return, it works!
+```
+
 ## Run from MacOS
 
 ***(Updated 20/04/22)***
@@ -84,7 +110,7 @@ ssh -p 6789 root@pop-os.local # qwerty
 ```
 </details>
 
-### Connect via ssh?
+## Connect via ssh?
 
 ```bash
 # Run ssh sever
@@ -97,7 +123,10 @@ ssh -p 6789 root@localhost
 
 👉 Check more on [this note](https://dinhanhthi.com/local-connection-between-2-computers-ssh/).
 
-### Checking GPU
+## Checking GPU (archived)
+
+<details>
+<summary>Click to show</summary>
 
 ``` bash
 # check gpu availability
@@ -131,6 +160,7 @@ python3 # enter to python env
 import tensorflow as tf
 tf.config.list_physical_devices('GPU')
 ```
+</details>
 
 ## Upgrade to a newer version of tensorflow?
 
