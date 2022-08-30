@@ -1,0 +1,17 @@
+FROM nvidia/cuda:11.3.1-devel-ubuntu20.04
+# https://dockr.ly/3Rhq8V3
+
+# fix (tzdata)
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get -y update && \
+    apt-get -y upgrade && \
+    apt-get install -y python3-pip python3-dev
+
+RUN apt-get install -y git
+
+# alias
+RUN echo 'alias python="python3"' >> ~/.bashrc
+RUN echo 'alias pip="pip3"' >> ~/.bashrc
+
+CMD tail -f /dev/null
