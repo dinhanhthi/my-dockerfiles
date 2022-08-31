@@ -1,0 +1,53 @@
+FROM nvidia/cuda:11.3.1-cudnn8-devel-ubuntu20.04
+# https://dockr.ly/3e57aTq
+
+# fix (tzdata)
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get -y update && \
+    apt-get -y upgrade && \
+    apt-get install -y python3-pip python3-dev
+
+RUN apt-get install -y locales git vim nano
+
+# encoding
+RUN echo "LC_ALL=en_US.UTF-8" >> /etc/environment
+RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+RUN echo "LANG=en_US.UTF-8" > /etc/locale.conf
+RUN locale-gen en_US.UTF-8
+
+# requirements
+COPY requirements.txt requirements.txt
+RUN python3 -m pip install --upgrade pip && \
+    python3 -m pip install -r requirements.txt
+COPY . .
+
+# Jupyter lab
+RUN python3 -m pip install jupyterlab
+
+# TORCH
+RUN pip3 install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113
+
+# Tensorflow 2.9.1
+RUN pip3 install tensorflow==2.9.1
+
+# zsh
+RUN apt-get install -y zsh && apt-get install -y curl
+RUN PATH="$PATH:/usr/bin/zsh"
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+# OPENSSH
+RUN apt-get install -y openssh-server
+RUN mkdir /var/run/sshd
+RUN echo 'root:qwerty' | chpasswd
+RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+# SSH login fix. Otherwise user is kicked off after login
+RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+# need?
+ENV NOTVISIBLE "in users profile"
+RUN echo "export VISIBLE=now" >> /etc/profile
+# Export port ssh
+EXPOSE 22
+
+# run
+CMD /bin/bash -c 'jupyter lab --no-browser --allow-root --ip=0.0.0.0 --NotebookApp.token="" --NotebookApp.password=""'
