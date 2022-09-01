@@ -1,25 +1,16 @@
-# apache-airflow # require version later!!!
-ipython==7.16.3
+ipython
+ipywidgets
 # jupyterlab is already installed in Dockerfile
-matplotlib==3.3.4
+matplotlib
 # numpy is already installed with tensorflow
-pandas==1.1.5
-pytest==7.0.1
-scikit-learn==0.24.2
-scipy==1.5.4
-seaborn==0.11.2
-
-sphinx==4.5.0
-sphinx-autobuild==2021.3.14
-sphinx-rtd-theme==1.0.0
-sphinxcontrib-napoleon==0.7
-
+pandas
+pytest
+scikit-learn
+scipy
+seaborn
+sphinx
+sphinx-autobuild
+sphinx-rtd-theme
+sphinxcontrib-napoleon
 # tensorflow dependencies are already installed in Dockerfile
-# tensorflow-gpu==2.4.3
-# (not) tensorflow==2.4.3
-
 # TORCH AND ITS DEPENDENCIES are installed in Dockerfile
-# torch==1.7.0+cu101
-# torchvision==0.8.1+cu101
-# torchaudio==0.7.0
-# pillow==7.2.0
